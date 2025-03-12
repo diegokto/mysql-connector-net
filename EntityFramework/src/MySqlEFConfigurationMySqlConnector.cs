@@ -36,7 +36,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Internal;
 using MySql.Data.MySqlClient;
 
-namespace MySql.Data.EntityFramework
+namespace MySqlCustom
 {
   /// <summary>
   /// Defines the configuration of an application to be used with Entity Framework. 
@@ -48,15 +48,15 @@ namespace MySql.Data.EntityFramework
     /// </summary>
     public MySqlEFConfigurationMySqlConnector()
     {
-      AddDependencyResolver(new MySqlDependencyResolver());
+      AddDependencyResolver(new MySqlDependencyResolverMySqlConnector());
 
       SetProviderFactory(MySqlProviderInvariantName.ProviderName, new MySqlClientFactoryMySqlConnector());
       SetProviderServices(MySqlProviderInvariantName.ProviderName, new MySqlCustom.MySqlProviderServices());
-      SetDefaultConnectionFactory(new MySqlConnectionFactoryMySqlConnector());
-      SetMigrationSqlGenerator(MySqlProviderInvariantName.ProviderName, () => new MySqlMigrationSqlGenerator());
+      SetDefaultConnectionFactory(new MySql.Data.EntityFramework.MySqlConnectionFactoryMySqlConnector());
+      SetMigrationSqlGenerator(MySqlProviderInvariantName.ProviderName, () => new MySql.Data.EntityFramework.MySqlMigrationSqlGenerator());
       SetProviderFactoryResolver(new MySqlProviderFactoryResolver());
       SetManifestTokenResolver(new MySqlManifestTokenResolver());
-      SetHistoryContext(MySqlProviderInvariantName.ProviderName, (existingConnection, defaultSchema) => new MySqlHistoryContext(existingConnection, defaultSchema));
+      SetHistoryContext(MySqlProviderInvariantName.ProviderName, (existingConnection, defaultSchema) => new MySql.Data.EntityFramework.MySqlHistoryContext(existingConnection, defaultSchema));
       //      //CURRENTLY IS NOT SUPPORTED WORK WITH TRANSACTIONS AND EXECUTION STRATEGY AT THE SAME TIME: http://msdn.microsoft.com/en-US/data/dn307226
       //      //IF WE SET THE EXECUTION STRATEGY HERE THAT WILL AFFECT THE USERS WHEN THEY TRY TO USE TRANSACTIONS, FOR THAT REASON EXECUTION STRATEGY WILL BE ENABLED ON DEMAND BY THEM
       //      //SetExecutionStrategy(MySqlProviderInvariantName.ProviderName, () => { return new MySqlExecutionStrategy(); });
