@@ -307,117 +307,15 @@ namespace MySql.Data.EntityFramework
 
     private MigrationStatement Generate(UpdateDatabaseOperation updateDatabaseOperation)
     {
-      if (updateDatabaseOperation == null)
-        throw new ArgumentNullException("UpdateDatabaseOperation");
+            throw new ArgumentNullException("migration disabled");
 
-      MigrationStatement statement = new MigrationStatement();
-      StringBuilder sql = new StringBuilder();
-      const string idempotentScriptName = "_idempotent_script";
-      SelectGenerator generator = new SelectGenerator();
-
-      if (!updateDatabaseOperation.Migrations.Any())
-        return statement;
-
-      sql.AppendFormat("DROP PROCEDURE IF EXISTS `{0}`;", idempotentScriptName);
-      sql.AppendLine();
-      sql.AppendLine();
-
-      sql.AppendLine("DELIMITER //");
-      sql.AppendLine();
-
-      sql.AppendFormat("CREATE PROCEDURE `{0}`()", idempotentScriptName);
-      sql.AppendLine();
-      sql.AppendLine("BEGIN");
-      sql.AppendLine("  DECLARE CurrentMigration TEXT;");
-      sql.AppendLine();
-      sql.AppendLine("  IF EXISTS(SELECT 1 FROM information_schema.tables ");
-      sql.AppendLine("  WHERE table_name = '__MigrationHistory' ");
-      sql.AppendLine("  AND table_schema = DATABASE()) THEN ");
-
-      foreach (var historyQueryTree in updateDatabaseOperation.HistoryQueryTrees)
-      {
-        string historyQuery = generator.GenerateSQL(historyQueryTree);
-        ReplaceParemeters(ref historyQuery, generator.Parameters);
-        sql.AppendLine(@"    SET CurrentMigration = (" + historyQuery + ");");
-        sql.AppendLine("  END IF;");
-        sql.AppendLine();
-      }
-
-      sql.AppendLine("  IF CurrentMigration IS NULL THEN");
-      sql.AppendLine("    SET CurrentMigration = '0';");
-      sql.AppendLine("  END IF;");
-      sql.AppendLine();
-
-      // Migrations
-      foreach (var migration in updateDatabaseOperation.Migrations)
-      {
-        if (migration.Operations.Count == 0)
-          continue;
-
-        sql.AppendLine("  IF CurrentMigration < '" + migration.MigrationId + "' THEN ");
-        var statements = Generate(migration.Operations, _providerManifestToken);
-        foreach (var migrationStatement in statements)
-        {
-          string sqlStatement = migrationStatement.Sql;
-          if (!sqlStatement.EndsWith(";"))
-            sqlStatement += ";";
-          sql.AppendLine(sqlStatement);
-        }
-        sql.AppendLine("  END IF;");
-        sql.AppendLine();
-      }
-
-      sql.AppendLine("END //");
-      sql.AppendLine();
-      sql.AppendLine("DELIMITER ;");
-      sql.AppendLine();
-      sql.AppendFormat("CALL `{0}`();", idempotentScriptName);
-      sql.AppendLine();
-      sql.AppendLine();
-      sql.AppendFormat("DROP PROCEDURE IF EXISTS `{0}`;", idempotentScriptName);
-      sql.AppendLine();
-
-      statement.Sql = sql.ToString();
-
-      return statement;
+            
     }
 
     protected virtual MigrationStatement Generate(HistoryOperation op)
     {
-      if (op == null) return null;
-
-      MigrationStatement stmt = new MigrationStatement();
-
-      var cmdStr = "";
-      SqlGenerator generator = new SelectGenerator();
-      foreach (var commandTree in op.CommandTrees)
-      {
-        switch (commandTree.CommandTreeKind)
-        {
-          case DbCommandTreeKind.Insert:
-            generator = new InsertGenerator();
-            break;
-          case DbCommandTreeKind.Delete:
-            generator = new DeleteGenerator();
-            break;
-          case DbCommandTreeKind.Update:
-            generator = new UpdateGenerator();
-            break;
-          case DbCommandTreeKind.Query:
-            generator = new SelectGenerator();
-            break;
-          case DbCommandTreeKind.Function:
-            generator = new FunctionGenerator();
-            break;
-          default:
-            throw new NotImplementedException(commandTree.CommandTreeKind.ToString());
-        }
-        cmdStr = generator.GenerateSQL(commandTree);
-
-        ReplaceParemeters(ref cmdStr, generator.Parameters);
-        stmt.Sql += cmdStr.Replace("dbo.", "") + ";";
-      }
-      return stmt;
+            throw new ArgumentNullException("migration disabled");
+            
     }
 
     private void ReplaceParemeters(ref string sql, IList<MySqlParameter> parameters)

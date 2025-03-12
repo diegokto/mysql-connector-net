@@ -92,7 +92,7 @@ namespace MySqlCustom
             {
                 throw new ArgumentException(
                         string.Format(
-                                "Spatial readers can only be produced from readers of type EFMySqlDataReader.   A reader of type {0} was provided.",
+                                "Spatial readers can only be produced from readers of type EFMySqlDataReaderMySqlConnector.   A reader of type {0} was provided.",
                                 fromReader.GetType()));
             }
 

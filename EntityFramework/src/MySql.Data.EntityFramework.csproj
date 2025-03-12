@@ -97,6 +97,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="EFMySqlCommandMySqlConnector.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="EFMySqlCommand.cs" />
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
