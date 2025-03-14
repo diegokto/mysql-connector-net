@@ -239,21 +239,22 @@ namespace MySql.Data.MySqlClient
 		{
 			// we need the connection option to determine what version of the server
 			// we are connected to
-			MySqlConnectionStringBuilder msb = new MySqlConnectionStringBuilder((connection as MySqlConnection).Settings.ConnectionString);
-			msb.Database = null;
-			using (MySqlConnection c = new MySqlConnection(msb.ConnectionString))
-			{
-				c.Open();
+			//MySqlConnectionStringBuilder msb = new MySqlConnectionStringBuilder((connection as MySqlConnection).Settings.ConnectionString);
+			//msb.Database = null;
+			//using (MySqlConnection c = new MySqlConnection(msb.ConnectionString))
+			//{
+			//	c.Open();
 				
-				var v = DBVersion.Parse(c.ServerVersion);
-				serverVersion = new Version(v.Major + "." + v.Minor);
+			//	var v = DBVersion.Parse(c.ServerVersion);
+			//	serverVersion = new Version(v.Major + "." + v.Minor);
 
-                double version = double.Parse(c.ServerVersion.Substring(0, 3), CultureInfo.InvariantCulture);
-                if (version < 5.6) throw new NotSupportedException("Versions of MySQL prior to 5.6 are not currently supported");
-                if (version < 5.7) return "5.6";
-                if (version < 8.0) return "5.7";
-                return "8.0";
-            }
+   //             double version = double.Parse(c.ServerVersion.Substring(0, 3), CultureInfo.InvariantCulture);
+   //             if (version < 5.6) throw new NotSupportedException("Versions of MySQL prior to 5.6 are not currently supported");
+   //             if (version < 5.7) return "5.6";
+   //             if (version < 8.0) return "5.7";
+   //         }
+
+            return "8.0";
         }
 
 		protected override DbProviderManifest GetDbProviderManifest(string manifestToken)
@@ -549,7 +550,7 @@ namespace MySql.Data.MySqlClient
 					else if (serverVersion >= new Version(5, 6) && column.TypeUsage.EdmType.BaseType.Name == "DateTime")
 						sql.AppendFormat(" DEFAULT CURRENT_TIMESTAMP{0}", fcDateTimePrecision != null && Convert.ToByte(fcDateTimePrecision.Value) >= 1 ? "( " + fcDateTimePrecision.Value.ToString() + " )" : "");                              
 					else
-						throw new MySqlException("Invalid identity column type.");
+						throw new Exception("Invalid identity column type.");
 				}      
         else if (facet.Value.Equals(StoreGeneratedPattern.Computed))
         {

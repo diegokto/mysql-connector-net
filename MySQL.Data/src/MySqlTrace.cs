@@ -59,7 +59,7 @@ namespace MySql.Data.MySqlClient
       }
     }
 
-    internal static void LogInformation(int id, string msg)
+    public static void LogInformation(int id, string msg)
     {
       Source.TraceEvent(TraceEventType.Information, id, msg, MySqlTraceEventType.NonQuery, -1);
       Trace.TraceInformation(msg);

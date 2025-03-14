@@ -34,7 +34,7 @@ namespace MySql.Data.Common
   /// <summary>
   /// Summary description for Version.
   /// </summary>
-  internal struct DBVersion
+  public struct DBVersion
   {
     private readonly string _srcString;
 

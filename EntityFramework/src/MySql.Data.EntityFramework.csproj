@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <Description>MySql.Data.EntityFramework</Description>
-    <Copyright>Copyright © 2016, 2024, Oracle and/or its affiliates.</Copyright>
+    <Copyright></Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>9.1.0</Version>
-    <Authors>Oracle</Authors>
+    <Version></Version>
+    <Authors></Authors>
     <TargetFrameworks>net462;net48;</TargetFrameworks>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <AssemblyName>MySql.Data.EntityFramework</AssemblyName>
-    <PackageId>MySql.Data.EntityFramework</PackageId>
-    <PackageTags>MySql;.NET Connector;MySql Connector/NET</PackageTags>
-    <PackageIcon>logo-mysql-170x115.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageProjectUrl>https://dev.mysql.com/downloads/</PackageProjectUrl>
+    <PackageId></PackageId>
+    <PackageTags></PackageTags>
+    <PackageIcon></PackageIcon>
+    <PackageReadmeFile></PackageReadmeFile>
+    <PackageProjectUrl></PackageProjectUrl>
     <PackageLicenseExpression>GPL-2.0-only WITH Universal-FOSS-exception-1.0</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
@@ -23,14 +23,6 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\Nuget\Images\logo-mysql-170x115.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\Nuget\Readme\EntityFramework\README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\README" Pack="true" PackagePath="\" />
@@ -62,8 +54,10 @@
   <PropertyGroup>
     <DelaySign>True</DelaySign>
     <AssemblyOriginatorKeyFile>../../ConnectorNetPublicKey.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>True</SignAssembly>
+    <SignAssembly>False</SignAssembly>
     <RootNamespace>MySql.Data.EntityFramework</RootNamespace>
+    <Company />
+    <Product />
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
