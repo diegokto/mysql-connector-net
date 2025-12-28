@@ -307,15 +307,14 @@ namespace MySql.Data.EntityFramework
 
     private MigrationStatement Generate(UpdateDatabaseOperation updateDatabaseOperation)
     {
-            throw new ArgumentNullException("migration disabled");
-
-            
+            // Return empty statement instead of throwing exception to allow migrations to proceed
+            return new MigrationStatement { Sql = "" };
     }
 
     protected virtual MigrationStatement Generate(HistoryOperation op)
     {
-            throw new ArgumentNullException("migration disabled");
-            
+            // Return empty statement instead of throwing exception to allow migrations to proceed
+            return new MigrationStatement { Sql = "" };
     }
 
     private void ReplaceParemeters(ref string sql, IList<MySqlParameter> parameters)
